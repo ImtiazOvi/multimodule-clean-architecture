@@ -1,26 +1,22 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
-}
-
-android {
+android{
     compileSdk AndroidConfig.compileSdkVersion
-
     defaultConfig {
-        applicationId AndroidConfig.applicationId
         minSdk AndroidConfig.minSdkVersion
         targetSdk AndroidConfig.targetSdkVersion
         versionCode AndroidConfig.versionCode
         versionName AndroidConfig.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,22 +27,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    buildFeatures{
-        viewBinding true
-    }
 }
 
 dependencies {
-
     implementation Dependencies.ktx
-    implementation Dependencies.appcompat
-    implementation Dependencies.material
-    implementation Dependencies.constraintLayout
-    implementation Dependencies.fragment
-    implementation Dependencies.activity
-    implementation Dependencies.navigationUi
-    implementation Dependencies.navigationFragment
+    implementation Dependencies.viewModel
+    implementation Dependencies.lifecycle
+    implementation Dependencies.liveData
 
     implementation Dependencies.hiltAndroid
     kapt Dependencies.hiltCompiler
@@ -60,9 +47,9 @@ dependencies {
 
     implementation Dependencies.rxJava3
     implementation Dependencies.rxJava3Android
+
     implementation Dependencies.timber
-
-
+    implementation Dependencies.gson
 
     testImplementation Dependencies.junit
     androidTestImplementation Dependencies.extJunit
