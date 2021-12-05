@@ -9,7 +9,4 @@ object ModuleDeps {
     const val data = ":data"
     const val assets = ":assets"
     const val navigation = ":navigation"
-    const val list = ":feature:list"
-    const val favourite = ":feature:favourite"
-    const val settings = ":feature:settings"
 }
